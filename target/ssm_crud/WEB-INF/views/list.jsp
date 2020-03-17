@@ -97,12 +97,14 @@
                         <c:if test="${page_Num != pageInfo.pageNum }">
                             <li><a href="${APP_PATH }/emps?pn=${page_Num }">${page_Num }</a></li>
                         </c:if>
-
                     </c:forEach>
+
                     <c:if test="${pageInfo.hasNextPage }">
-                        <li><a href="${APP_PATH }/emps?pn=${pageInfo.pageNum+1 }"
-                               aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-                        </a></li>
+                        <li>
+                            <a href="${APP_PATH }/emps?pn=${pageInfo.pageNum+1 }" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
                     </c:if>
                     <li><a href="${APP_PATH }/emps?pn=${pageInfo.pages}">末页</a></li>
                 </ul>
