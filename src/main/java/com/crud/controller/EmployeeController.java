@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,25 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+    @ResponseBody
+    @RequestMapping(value="/emp/{ids}",method=RequestMethod.DELETE)
+    public Msg deleteEmpById(@PathVariable("ids") String ids){
+        if(ids.contains("-")){
+            // 批量删除
+            List<Integer> del_ids = new ArrayList<>();
+            String[] str_ids = ids.split("-");
+            // 组装id的集合
+            for (String str_id : str_ids) {
+                del_ids.add(Integer.parseInt(str_id));
+            }
+            employeeService.deleteBatch(del_ids);
+        } else {
+            // 单一删除
+            Integer id = Integer.parseInt(ids);
+            employeeService.deleteEmp(id);
+        }
+        return Msg.success();
+    }
 
     /**
      * 如果直接发送ajax=PUT形式的请求
